@@ -8,7 +8,7 @@ const Styles = styled.div`
     background: url(${img1}) no-repeat fixed bottom;
     background-size: cover;
     color: white;
-    height: 600px;
+    height: 800px;
     position: relative;
     z-index: -2;
   }
@@ -29,11 +29,11 @@ function Jumbo() {
   return (
     <Styles>
       <Jumbotron className="jumbo" fluid>
-        <Container style={{ opacity: "1" }}>
+        <div className="overlay"></div>
+        <Container>
           <h1>Title</h1>
           <p>Lorem ipsum dolor sit amet.</p>
         </Container>
-        <div className="overlay"></div>
       </Jumbotron>
     </Styles>
   );
