@@ -1,9 +1,10 @@
-import React, { Component } from "react";
+import React, { Component, Suspense } from "react";
 import "./App.css";
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
-import { Home, About, Contacts } from "./pages";
 import Navigation from "./components/Navigation";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
+import Footer from "./components/Footer";
+import routes from "./routes";
 
 class App extends Component {
   render() {
@@ -11,12 +12,15 @@ class App extends Component {
       <>
         <BrowserRouter>
           <Navigation />
-          <Switch>
-            <Route component={Home} path="/" exact/>
-            <Route component={About} path="/about"/>
-            <Route component={Contacts} path="/contacts"/>
-          </Switch>
+          <Suspense fallback="loading...">
+            <Switch>
+              {routes.map((route) => {
+                return <Route key={route.path} {...route} />;
+              })}
+            </Switch>
+          </Suspense>
         </BrowserRouter>
+        <Footer />
       </>
     );
   }
