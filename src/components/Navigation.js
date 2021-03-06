@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Navbar, Nav, Button, Container, Modal } from "react-bootstrap";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import withAuthContext from "./hoc/withAuthContext"
 
 const Styles = styled.div`
   a,
@@ -14,10 +15,10 @@ const Styles = styled.div`
   }
 `;
 
-function Navigation() {
-  const [show, setShow] = useState(false)
-  const handleShow = () => setShow(true)
-  const handleClose = () => setShow(false)
+function Navigation({ auth }) {
+  const [show, setShow] = useState(false);
+  const handleShow = () => setShow(true);
+  const handleClose = () => setShow(false);
   return (
     <>
       <Styles>
@@ -38,21 +39,37 @@ function Navigation() {
                 </Nav.Link>
               </Nav>
               <Nav>
-                <Button variant="primary" className="mr-2" onClick={handleShow}>Log In</Button>
-                <Button variant="primary" onClick={handleShow}>Sign Out</Button>
+                {auth.user ? (
+                  <div style={Styles.container}>
+                    <img src={auth.user.avatar} alt={auth.user.name} width="32" style={Styles.avatar} />
+                    <span style={Styles.name}>Hello, {auth.user.name}</span>
+                    <button type="button" onClick={auth.onLogout}>
+                      Log Out
+                    </button>
+                  </div>
+                ) : (
+                  <>
+                    <Button variant="primary" className="mr-2" onClick={auth.onLogin}>
+                      Log In
+                    </Button>
+                    <Button variant="primary" onClick={auth.onLogin}>
+                      Sign Out
+                    </Button>
+                  </>
+                )}
               </Nav>
             </Navbar.Collapse>
           </Container>
         </Navbar>
       </Styles>
-      <Modal show={show} onHide={handleClose}>
-        <Modal.Header>
-          
-        </Modal.Header>
-        <show></show>
-      </Modal>
     </>
   );
 }
+// <Modal show={show} onHide={handleClose}>
+//   <Modal.Header>
 
-export default Navigation;
+//   </Modal.Header>
+//   <show></show>
+// </Modal>
+
+export default withAuthContext(Navigation);
