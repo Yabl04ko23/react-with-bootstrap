@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Navbar, Nav, Button, Container, Modal } from "react-bootstrap";
+import React from "react";
+import { Navbar, Nav, Button, Container, } from "react-bootstrap";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import withAuthContext from "./hoc/withAuthContext"
@@ -16,9 +16,6 @@ const Styles = styled.div`
 `;
 
 function Navigation({ auth }) {
-  const [show, setShow] = useState(false);
-  const handleShow = () => setShow(true);
-  const handleClose = () => setShow(false);
   return (
     <>
       <Styles>
@@ -65,11 +62,4 @@ function Navigation({ auth }) {
     </>
   );
 }
-// <Modal show={show} onHide={handleClose}>
-//   <Modal.Header>
-
-//   </Modal.Header>
-//   <show></show>
-// </Modal>
-
 export default withAuthContext(Navigation);

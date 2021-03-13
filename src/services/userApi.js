@@ -1,3 +1,4 @@
+/* eslint-disable import/no-anonymous-default-export */
 const user = {
   name: "Olexiy",
   email: "aloshanizi23@gmail.com",
